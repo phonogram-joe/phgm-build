@@ -1,0 +1,55 @@
+{
+    "name": "phgm-build",
+    "version": "0.0.1",
+    "description": "A simple website build tool based on @visionmedia's commander.js",
+    "keywords": [
+      "node",
+      "build",
+      "javascript",
+      "css",
+      "less"
+    ],
+    "maintainers": [
+      {
+        "name":  "Joseph Savona",
+        "email": "joe@phonogram.co.jp",
+        "web": "https://github.com/phonogram-joe/phgm-build"
+      }
+    ],
+    "contributors": [],
+    "bugs": {
+        "email": "joe@phonogram.co.jp",
+        "url": "http://github.com/phonogram-joe/phgm-build"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://github.com/tmpvar/jsdom/blob/master/LICENSE.txt"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "http://github.com/phonogram-joe/phgm-build.git"
+        }
+    ],
+    "implements": [],
+    "dependencies": {
+      "underscore": "~1.3.3",
+      "mkdirp": "~0.3.2",
+      "glob-whatev": "~0.1.6",
+      "prompt": "~0.1.12",
+      "less": "~1.3.0",
+      "uglify-js": "~1.2.6",
+      "clean-css": "~0.3.2",
+      "commander": "~0.6.0"
+    },
+    "engines" : { "node" : ">=0.6.17" },
+    "directories": {
+        "lib": "./lib/phgm-build"
+    },
+    "main": "./lib/phgm-build",
+    "bin": {
+      "phgm-build": "./bin/phgm-build.js"
+    }
+}

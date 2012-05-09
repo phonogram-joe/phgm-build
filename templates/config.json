@@ -1,0 +1,20 @@
+{
+	"root": "public_html",
+	"publish": "public",
+	"assets": {
+		"root": "inc",
+		"styles": "styles",
+		"scripts": "scripts",
+		"images": "images",
+		"fonts": "fonts"
+	},
+	"exclude_patterns": {
+		"html": null,
+		"styles": null,
+		"scripts": null,
+		"images": null,
+		"fonts": null
+	},
+	"less_roots": ["base.less"],
+	"script_roots": ["scripts.js"]
+}
