@@ -13,5 +13,5 @@ results
 
 node_modules
 npm-debug.log
-public_html/*
-sample/*
+
+sample/published/*

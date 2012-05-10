@@ -1,0 +1,78 @@
+{
+	"paths": {
+		"source": "public_html"
+		, "publish": "published"
+	}
+	, "config": {
+		"less": {
+			"root_files": []
+			, "compress": false
+		}
+		, "minify_js": {
+			"ext": ".js"
+		}
+		, "rewrite_text": {
+			"rewrite": [
+				//	[key,value] arrays where the key is the pattern to match,
+				//	value is the value to rewrite to.
+			]
+		}
+	}
+	, "filesets": {
+		"all": {
+			//	specify files to process. if empty, all files are processed.
+			//	if an array of string regexp patterns, only files matching
+			//	one or more patterns will be processed.
+			"include": [] 
+			//	specify files to exclude from processing. if empty, no files
+			//	are excluded (eg all files matching rules for "include" are
+			//	processed). if an array of string regexp patterns, files
+			//	that match one or more patterns will be excluded from processing
+			//	regardless of if they match an "include" pattern. eg,
+			//	"exclude" patterns are processed first and win.
+			, "exclude": []
+			//	specify a list of tasks to run against the included files.
+			, "tasks" : [
+				"minify_js"
+				, "less"
+				, "copy"
+				, "rewrite_text"
+			]
+			//	specify a list of other filesets that should be processed
+			//	first before processing this fileset.
+			, "filesets": []	
+			//	specify custom configuration options to override the top-level
+			//	configuration. options will be merged - to unset a top-level
+			//	config item, set it to null.
+			, "config": {
+				"less": {
+					"root_files": [
+						"assets/styles/bootstrap-adjust.less"
+						, "assets/styles/bootstrap/bootstrap.less"
+						, "assets/styles/bootstrap/responsive.less"
+					],
+					"compress": true
+				}
+				, "minify_js": {
+					"ext": ".min.js"
+				}, "rewrite_text": {
+					"rewrite": [
+						{
+							"pattern": "(<link[^>]+?)([-\\._a-zA-Z0-9]+)\\.less"
+							, "replace": "$1$2.css"
+						}
+						, {
+							"pattern": "stylesheet\\\/less"
+							, "replace": "stylesheet"
+						}
+						, {
+							"pattern": "(<script[^>]+?)([-\\._a-zA-Z0-9]+)\\.js"
+							, "replace": "$1$2.min.js"
+						}
+					]
+					, "include": ["\\.html$"]
+				}
+			}
+		}
+	}
+}
