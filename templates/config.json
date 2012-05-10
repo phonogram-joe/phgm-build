@@ -11,6 +11,12 @@
 		, "minify_js": {
 			"ext": ".js"
 		}
+		, "rewrite_text": {
+			"rewrite": [
+				//	[key,value] arrays where the key is the pattern to match,
+				//	value is the value to rewrite to.
+			]
+		}
 	}
 	, "filesets": {
 		"all": {
@@ -30,6 +36,7 @@
 				"minify_js"
 				, "less"
 				, "copy"
+				, "rewrite_text"
 			]
 			//	specify a list of other filesets that should be processed
 			//	first before processing this fileset.
@@ -40,13 +47,30 @@
 			, "config": {
 				"less": {
 					"root_files": [
-						"assets/styles/bootstrap/bootstrap.less"
+						"assets/styles/bootstrap-adjust.less"
+						, "assets/styles/bootstrap/bootstrap.less"
 						, "assets/styles/bootstrap/responsive.less"
 					],
 					"compress": true
 				}
 				, "minify_js": {
 					"ext": ".min.js"
+				}, "rewrite_text": {
+					"rewrite": [
+						{
+							"pattern": "(<link[^>]+?)([-\\._a-zA-Z0-9]+)\\.less"
+							, "replace": "$1$2.css"
+						}
+						, {
+							"pattern": "stylesheet\\\/less"
+							, "replace": "stylesheet"
+						}
+						, {
+							"pattern": "(<script[^>]+?)([-\\._a-zA-Z0-9]+)\\.js"
+							, "replace": "$1$2.min.js"
+						}
+					]
+					, "include": ["\\.html$"]
 				}
 			}
 		}
