@@ -5,12 +5,11 @@
 	}
 	, "config": {
 		"less": {
-			"root_files": [],
-			"compress": false
+			"root_files": []
+			, "compress": false
 		}
-		, "coffeescript": {
-		}
-		, "templates": {
+		, "minify_js": {
+			"ext": ".js"
 		}
 	}
 	, "filesets": {
@@ -27,7 +26,11 @@
 			//	"exclude" patterns are processed first and win.
 			, "exclude": []
 			//	specify a list of tasks to run against the included files.
-			, "tasks" : ["less", "copy"]
+			, "tasks" : [
+				"minify_js"
+				, "less"
+				, "copy"
+			]
 			//	specify a list of other filesets that should be processed
 			//	first before processing this fileset.
 			, "filesets": []	
@@ -37,10 +40,13 @@
 			, "config": {
 				"less": {
 					"root_files": [
-						"assets/styles/bootstrap/bootstrap.less", 
-						"assets/styles/bootstrap/responsive.less"
+						"assets/styles/bootstrap/bootstrap.less"
+						, "assets/styles/bootstrap/responsive.less"
 					],
 					"compress": true
+				}
+				, "minify_js": {
+					"ext": ".min.js"
 				}
 			}
 		}
