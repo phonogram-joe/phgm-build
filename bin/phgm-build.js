@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var program = require('commander'),
-	commands = require('../lib/commands');
+	commands = require('../lib/command_loader');
 
 program
 	.version('0.0.1');
@@ -12,7 +12,11 @@ program
 	.command('*')
 	.description('不明なコマンド')
 	.action(function(command){
-		console.log('「' + command + '」は不明なコマンドです。');
+		console.error('不明ななコマンドです。使い方を見るには--helpオプションを付ける。');
+		console.error('Unknown command. To see usage information add the --help option.');
+		console.error('"' + command + '"');
+		console.error('FAIL');
+		process.exit(1);
 	});
 
 commands.initCommands(program);
