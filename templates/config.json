@@ -1,20 +1,45 @@
 {
-	"root": "public_html",
-	"publish": "public",
-	"assets": {
-		"root": "inc",
-		"styles": "styles",
-		"scripts": "scripts",
-		"images": "images",
-		"fonts": "fonts"
-	},
-	"exclude_patterns": {
-		"html": null,
-		"styles": null,
-		"scripts": null,
-		"images": null,
-		"fonts": null
-	},
-	"less_roots": ["base.less"],
-	"script_roots": ["scripts.js"]
+	"paths": {
+		"source": "public_html"
+		, "publish": "published"
+	}
+	, "config": {
+		"less": {
+			"root_files": []
+		}
+		, "coffeescript": {
+		}
+		, "templates": {
+		}
+	}
+	, "filesets": {
+		"all": {
+			//	specify files to process. if null, all files are processed.
+			//	if an array of string regexp patterns, only files matching
+			//	one or more patterns will be processed.
+			"include": null 
+			//	specify files to exclude from processing. if null, no files
+			//	are excluded (eg all files matching rules for "include" are
+			//	processed). if an array of string regexp patterns, files
+			//	that match one or more patterns will be excluded from processing
+			//	regardless of if they match an "include" pattern. eg,
+			//	"exclude" patterns are processed first and win.
+			, "exclude": []
+			//	specify a list of tasks to run against the included files.
+			, "tasks" : []
+			//	specify a list of other filesets that should be processed
+			//	first before processing this fileset.
+			, "filesets": []	
+			//	specify custom configuration options to override the top-level
+			//	configuration. options will be merged - to unset a top-level
+			//	config item, set it to null.
+			, "config": {
+				/*
+				"less": {
+					"root_files": []
+				}
+				*/
+			}
+		}
+	}
 }
