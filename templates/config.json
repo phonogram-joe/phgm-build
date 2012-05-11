@@ -89,7 +89,7 @@
 			]
 			//	specify a list of other filesets that should be processed
 			//	first before processing this fileset.
-			//	子供のファイル・グループ。まずはこのファイルグループが処理され、それかこの中のグループが一個ずつ処理されます。
+			//	子供のファイル・グループ。ま。親の処理を行う前に、子供の処理が行われます。
 			, "fileset_includes": []	
 			//	specify custom configuration options to override the top-level
 			//	configuration. options will be merged - to unset a top-level
