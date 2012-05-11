@@ -11,6 +11,9 @@
 		, "minify_js": {
 			"ext": ".js"
 		}
+		, "minify_css": {
+			"ext": ".css"
+		}
 		, "rewrite_text": {
 			"rewrite": [
 				//	[key,value] arrays where the key is the pattern to match,
