@@ -6,7 +6,7 @@
 	, "config": {
 		"less": {
 			"root_files": []
-			, "compress": false
+			, "minify": false
 		}
 		, "minify_js": {
 			"ext": ".js"
@@ -36,8 +36,9 @@
 			, "exclude": []
 			//	specify a list of tasks to run against the included files.
 			, "tasks" : [
-				"minify_js"
-				, "less"
+				"less"
+				, "minify_css"
+				, "minify_js"
 				, "copy"
 				, "rewrite_text"
 			]
@@ -54,7 +55,7 @@
 						, "assets/styles/bootstrap/bootstrap.less"
 						, "assets/styles/bootstrap/responsive.less"
 					],
-					"compress": true
+					"minify": true
 				}
 				, "minify_js": {
 					"ext": ".min.js"
