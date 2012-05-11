@@ -5,13 +5,16 @@
 		//	root directory of source files.
 		//	ソースの親フォルダー
 		"source": "public_html"
+		//	temporary working directory
+		//	ファイルを処理・変換できる一時的なフォルダー
+		, "temporary": "tmp"
 		//	root directory to which files are published during build.
 		//	公開（ビルド）先の親フォルダー
 		, "publish": "published"
 	}
 	//	task default configuration, used for all filesets.
 	//	タスクのデフォルト設定。全てのファイルグループに対して有効。
-	, "config": {
+	, "task_defaults": {
 		//	LessCSS settings
 		"less": {
 			//	root Less files - put your top level files here
@@ -87,12 +90,12 @@
 			//	specify a list of other filesets that should be processed
 			//	first before processing this fileset.
 			//	子供のファイル・グループ。まずはこのファイルグループが処理され、それかこの中のグループが一個ずつ処理されます。
-			, "filesets": []	
+			, "fileset_includes": []	
 			//	specify custom configuration options to override the top-level
 			//	configuration. options will be merged - to unset a top-level
 			//	config item, set it to null.
 			//	タスクの設定。デフォルトの設定を上書きます。
-			, "config": {
+			, "task_config": {
 				"less": {
 					"root_files": [
 						"assets/styles/bootstrap-adjust.less"
