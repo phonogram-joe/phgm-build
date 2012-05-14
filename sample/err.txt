@@ -1,0 +1,15 @@
+
+node.js:201
+        throw e; // process.nextTick error, or 'error' event on first tick
+              ^
+TypeError: Cannot call method 'setWorkingDir' of undefined
+    at [object Object]._next (C:\Users\joe\Documents\github\phgm-build\lib\task_runner.js:97:22)
+    at [object Object].process (C:\Users\joe\Documents\github\phgm-build\lib\task_runner.js:85:7)
+    at Command.<anonymous> (C:\Users\joe\Documents\github\phgm-build\bin\phgm-build.js:42:10)
+    at Command.<anonymous> (C:\Users\joe\Documents\github\phgm-build\node_modules\commander\lib\commander.js:232:8)
+    at Command.emit (events.js:67:17)
+    at Command.parseArgs (C:\Users\joe\Documents\github\phgm-build\node_modules\commander\lib\commander.js:401:12)
+    at Command.parse (C:\Users\joe\Documents\github\phgm-build\node_modules\commander\lib\commander.js:349:15)
+    at Object.<anonymous> (C:\Users\joe\Documents\github\phgm-build\bin\phgm-build.js:45:9)
+    at Module._compile (module.js:441:26)
+    at Object..js (module.js:459:10)

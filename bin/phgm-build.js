@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 var program = require('commander'),
-	commands = require('../lib/command_loader');
+	TaskRunnerAsync = require('../lib/task_runner'),
+	PathsDelta = require('../lib/utils/paths_delta'),
+	app = require('../lib/app'),
+	builder = require('../lib/builder');
 
 program
 	.version('0.0.1');
@@ -10,15 +13,32 @@ program
 
 program
 	.command('*')
-	.description('不明なコマンド')
-	.action(function(command){
-		console.error('不明ななコマンドです。使い方を見るには--helpオプションを付ける。');
-		console.error('Unknown command. To see usage information add the --help option.');
-		console.error('"' + command + '"');
-		console.error('FAIL');
-		process.exit(1);
-	});
+	.description('指定のタスクを実行する。\nExecute the specified task.')
+	.action(function(taskName) {
+		var runner,
+			fileChanges,
+			callback,
+			taskConfig;
 
-commands.initCommands(program);
+		builder.log(
+			'ビルドを準備しています。',
+			'PREPARING BUILD'
+		);
+
+		taskConfig = app.config.tasks[taskName];
+		fileChanges = new PathsDelta();
+		callback = function() {
+			builder.log(
+				'ビルド完了',
+				'BUILD COMPLETE'
+			);
+		};
+
+		runner = new TaskRunnerAsync(taskConfig);
+		runner.setWorkingDir(app.path);
+		runner.setFileChanges(fileChanges);
+		runner.setCallback(callback);
+		runner.process();
+	});
 
 program.parse(process.argv);

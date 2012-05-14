@@ -1,0 +1,99 @@
+{
+	//	paths can be defined here and referenced later. see action documentation for which
+	//	config params expect a path key. eg the "copy" action's <src> and <dest> params.
+	"paths": {
+		"source": "./public_html"
+		, "temporary": "./tmp"
+		, "publish": "./published"
+	},
+	//	runnable tasks
+	"tasks": {
+		//	sub task for simply copying files to working dir.
+		"copy_temp": [
+			{
+				"action": "copy"
+				, "src": "source"
+				, "dest": "temporary"
+				, "clean_first": true
+				, "change_directory": true
+			}
+		]
+		//	main task for running a full build.
+		, "all": [
+			//	copy files from <src> to <dest>, cleaning the target directory first.
+			//	change working directory to the target afterwards.
+			{
+				"action": "copy"
+				, "src": "source"
+				, "dest": "temporary"
+				, "clean_first": true
+				, "change_directory": true
+			}
+			/*
+			//	run a sub-task (eg, all of its actions), pasing the current working directory.
+			, {
+				"action": "task"
+				, "task" : "dev"
+			}
+			*/
+			//	process .less files into .css files. only process the specified files and ignore other .less files
+			, {
+				"action": "less"
+				, "files": [
+					"assets\/styles\/bootstrap\/bootstrap.less"
+					, "assets\/styles\/bootstrap\/responsive.less"
+					, "assets\/styles\/bootstrap-adjust.less"
+				]
+			}
+			//	minify css files, replacing the original extension with '.css' (eg, keep same extension explicitly)
+			, {
+				"action": "minify_css"
+				, "ext": ".css"
+			}
+			//	minify js files, replacing original extension with '.min.js'. do not process files that end in "min.js"
+			, {
+				"action": "minify_js"
+				, "ext": ".min.js"
+				, "ignore": "min\\.js$"
+			}
+			//	rewrite text contents of .html files.
+			, {
+				"action": "rewrite_text"
+				, "include": ["\\.html$"]
+				, "rewrites": [
+					//	rewrite less <links> to refer to css files
+					//	LessCSSファイルをCSSへの<link>をCSSへのリンクに書き換える。
+					{
+						"pattern": "(<link[^>]+?)([-\\._a-zA-Z0-9]+)\\.less"
+						, "replace": "$1$2.css"
+					}
+					//	rewrite less rel="..." to refer to css
+					, {
+						"pattern": "stylesheet\\\/less"
+						, "replace": "stylesheet"
+					}
+					//	rewrite <script> tags to refer to minified javascript files
+					//	スクリプトタグを圧縮されたファイルパスに書き換える。
+					, {
+						"pattern": "(<script[^>]+?)([-\\._a-zA-Z0-9]+)\\.js"
+						, "replace": "$1$2.min.js"
+					}
+				]
+			}
+			//	copy the temporary directory to the publish directory. limit the files copied
+			//	to those explicitly added by previous actions.
+			, {
+				"action": "copy"
+				, "src": "temporary"
+				, "dest": "publish"
+				, "added_only": true
+				, "clean_first": true
+			}
+			//	remove the temporary directory.
+			, {
+				"action": "clean"
+				, "target": "temporary"
+			}
+		]
+	}
+}
