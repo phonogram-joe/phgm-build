@@ -3,10 +3,14 @@ var program = require('commander'),
 	TaskRunnerAsync = require('../lib/task_runner'),
 	PathsDelta = require('../lib/utils/paths_delta'),
 	app = require('../lib/app'),
-	builder = require('../lib/builder');
+	builder = require('../lib/builder'),
+	file = require('../lib/utils/file');
 
 program
-	.version('0.0.1');
+	.version('0.0.1')
+	.usage('[options] [task]')
+	.option('-i, --init', 'create sample config file if not present.')
+	.option('-c, --config <path>', 'use the config file at <path>. ')
 	//.option('-C, --chdir <path>', 'change the working directory')
 	//.option('-c, --config <path>', 'set config path. defaults to ./deploy.conf')
 	//.option('-T, --no-tests', 'ignore test hook');
@@ -19,6 +23,14 @@ program
 			fileChanges,
 			callback,
 			taskConfig;
+
+		if (this.init === true) {
+			return;
+		}
+		if (this.config != null) {
+			app.setConfigPath(this.config);
+		}
+		app.loadConfig();
 
 		builder.log(
 			'ビルドを準備しています。',
@@ -42,3 +54,14 @@ program
 	});
 
 program.parse(process.argv);
+
+if (program.init) {
+	if (app.hasConfig()) {
+		console.error('設定ファイルは既に作られています。', 'Config file already exists.', app.configPath);
+		process.exit(1);
+	}
+	console.log('サンプル設定ファイルを作成します。', 'Creating sample config file.', app.configPath);
+	file.copy(builder.getTemplate(app.configFileName), app.configPath);
+	console.log('OK');
+	process.exit(0);
+}
