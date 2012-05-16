@@ -8,18 +8,19 @@
 	},
 	//	runnable tasks
 	"tasks": {
-		//	sub task for simply copying files to working dir.
-		"dev": [
+		//	sub task for cleaning temporary and publish directories.
+		"clean": [
 			{
-				"action": "copy"
-				, "src": "source"
-				, "dest": "temporary"
-				, "clean_first": true
-				, "change_directory": true
+				"action": "clean"
+				, "target": "temporary"
+			}
+			, {
+				"action": "clean"
+				, "target": "publish"
 			}
 		]
 		//	main task for running a full build.
-		, "all": [
+		, "build": [
 			//	copy files from <src> to <dest>, cleaning the target directory first.
 			//	change working directory to the target afterwards.
 			{
@@ -58,37 +59,39 @@
 				, "ignore": "min\\.js$"
 			}
 			//	rewrite text contents of .html files.
+			//	example rewrites localhost references to the 'real' production domain name.
 			, {
 				"action": "rewrite_text"
 				, "include": ["\\.html$"]
 				, "rewrites": [
-					//	rewrite less <links> to refer to css files
-					//	LessCSSファイルをCSSへの<link>をCSSへのリンクに書き換える。
 					{
-						"pattern": "(<link[^>]+?)([-\\._a-zA-Z0-9]+?)(?!min)([-\\._a-zA-Z0-9]{3})\\.less"
-						, "replace": "$1$2$3.min.css"
-					}
-					//	rewrite less rel="..." to refer to css
-					, {
-						"pattern": "stylesheet\\\/less"
-						, "replace": "stylesheet"
-					}
-					//	rewrite <script> tags to refer to minified javascript files
-					//	スクリプトタグを圧縮されたファイルパスに書き換える。
-					, {
-						"pattern": "(<script[^>]+?)([-\\._a-zA-Z0-9]+?)(?!min)([-\\._a-zA-Z0-9]{3})\\.js"
-						, "replace": "$1$2$3.min.js"
+						"pattern": "http:\/\/localhost:8080"
+						, "replace": "http:\/\/example.com"
 					}
 				]
 			}
-			//	merge consecutibe <script> and CSS <link> tags into single tags.
-			/*
+			//	modify HTML. 
+			//	* make all URLs either absolute (if already) or root-relative (if relative)
+			//	* compact multiple blank lines into one newline
+			//	* remove comments
 			, {
-				"action": "merge_js_css"
+				"action": "transform_html"
+				, "remove_comments": true
+				, "rewrite_urls": true
+				, "compact_lines": true
+			}
+			//	merge consecutive <script> and CSS <link> tags into single tags.
+			//	specify a base directory for the merged script and style files.
+			//	optionally rewrite <link>s with stylesheet/less to css.
+			//	LessCSS file paths will be properly followed if the less has been compiled to css
+			//	note: do Less CSS compilation before this action.
+			, {
+				"action": "merge_html_assets"
 				, "script_dir": "assets/scripts"
 				, "style_dir": "assets/styles"
+				, "less_to_css": true
+				, "separator_class": "phuild-separate"
 			}
-			*/
 			//	copy the temporary directory to the publish directory. limit the files copied
 			//	to those explicitly added by previous actions.
 			, {
@@ -98,6 +101,7 @@
 				, "added_only": true
 				, "clean_first": true
 			}
+			//	remove the temporary directory
 			, {
 				"action": "clean"
 				, "target": "temporary"
