@@ -16,3 +16,4 @@ npm-debug.log
 
 sample/published/*
 sample/tmp/*
+sample/log.txt

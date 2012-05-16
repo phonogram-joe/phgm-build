@@ -32,6 +32,12 @@
         }
       }
     },
+    "cssom": {
+      "version": "0.2.3"
+    },
+    "htmlparser2": {
+      "version": "2.2.8"
+    },
     "commander": {
       "version": "0.6.0"
     }

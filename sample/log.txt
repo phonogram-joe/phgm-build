@@ -74,20 +74,71 @@ CSSを圧縮します。 Minifying CSS C:\Users\joe\Documents\github\phgm-build\
 CSSを圧縮します。 Minifying CSS C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap-adjust.css
 CSSを圧縮します。 Minifying CSS C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\ui-lightness\jquery-ui-1.8.20.custom.css
 JavaScriptを圧縮します。 Minifying JavaScript C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\scripts\jquery-1.7.2.js
-JavaScriptを圧縮します。 Minifying JavaScript C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\scripts\jquery-ui-1.8.20.custom.min.js
 テキスト内容を書き換えます。 Rewriting text contents C:\Users\joe\Documents\github\phgm-build\sample\tmp\contact\about.html
 テキスト内容を書き換えます。 Rewriting text contents C:\Users\joe\Documents\github\phgm-build\sample\tmp\contact\index.html
 テキスト内容を書き換えます。 Rewriting text contents C:\Users\joe\Documents\github\phgm-build\sample\tmp\index.html
+HTMLファイルを解析してJavaScriptとCSSをマージする。 Analyzing HTML to merge scripts and styles. C:\Users\joe\Documents\github\phgm-build\sample\tmp\contact\about.html
+fileset::  [ 'assets\\styles\\styles_0-1337149923247.css',
+  'style',
+  '/assets/styles/bootstrap/bootstrap.min.css',
+  '/assets/styles/bootstrap/responsive.min.css',
+  '/assets/styles/bootstrap-adjust.min.css' ]
+HTMLファイルを解析してJavaScriptとCSSをマージする。 Analyzing HTML to merge scripts and styles. C:\Users\joe\Documents\github\phgm-build\sample\tmp\contact\index.html
+fileset::  [ 'assets\\styles\\styles_1-1337149923249.css',
+  'style',
+  '/assets/styles/bootstrap/bootstrap.min.css',
+  '/assets/styles/bootstrap/responsive.min.css' ]
+fileset::  [ 'assets\\styles\\styles_2-1337149923249.css',
+  'style',
+  '/assets/styles/bootstrap-adjust.min.css',
+  '/assets/styles/ui-lightness/jquery-ui-1.8.20.custom.css' ]
+HTMLファイルを解析してJavaScriptとCSSをマージする。 Analyzing HTML to merge scripts and styles. C:\Users\joe\Documents\github\phgm-build\sample\tmp\index.html
+fileset::  [ 'assets\\scripts\\scripts_3-1337149923251.js',
+  'script',
+  '/assets/scripts/jquery-1.7.2.min.js',
+  '/assets/scripts/jquery-ui-1.8.20.custom.min.js' ]
+MergeHtmlAssets filesets:
+{ '/assets/styles/bootstrap-adjust.min.css|/assets/styles/bootstrap/bootstrap.min.css|/assets/styles/bootstrap/responsive.min.css|style': 
+   [ 'assets\\styles\\styles_0-1337149923247.css',
+     'style',
+     '/assets/styles/bootstrap/bootstrap.min.css',
+     '/assets/styles/bootstrap/responsive.min.css',
+     '/assets/styles/bootstrap-adjust.min.css' ],
+  '/assets/styles/bootstrap/bootstrap.min.css|/assets/styles/bootstrap/responsive.min.css|style': 
+   [ 'assets\\styles\\styles_1-1337149923249.css',
+     'style',
+     '/assets/styles/bootstrap/bootstrap.min.css',
+     '/assets/styles/bootstrap/responsive.min.css' ],
+  '/assets/styles/bootstrap-adjust.min.css|/assets/styles/ui-lightness/jquery-ui-1.8.20.custom.css|style': 
+   [ 'assets\\styles\\styles_2-1337149923249.css',
+     'style',
+     '/assets/styles/bootstrap-adjust.min.css',
+     '/assets/styles/ui-lightness/jquery-ui-1.8.20.custom.css' ],
+  '/assets/scripts/jquery-1.7.2.min.js|/assets/scripts/jquery-ui-1.8.20.custom.min.js|script': 
+   [ 'assets\\scripts\\scripts_3-1337149923251.js',
+     'script',
+     '/assets/scripts/jquery-1.7.2.min.js',
+     '/assets/scripts/jquery-ui-1.8.20.custom.min.js' ] }
+merging files  C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap\bootstrap.min.css C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\styles_0-1337149923247.css
+merging files  C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap\responsive.min.css C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\styles_0-1337149923247.css
+merging files  C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap-adjust.min.css C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\styles_0-1337149923247.css
+merging files  C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap\bootstrap.min.css C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\styles_1-1337149923249.css
+merging files  C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap\responsive.min.css C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\styles_1-1337149923249.css
+merging files  C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap-adjust.min.css C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\styles_2-1337149923249.css
+merging files  C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\ui-lightness\jquery-ui-1.8.20.custom.min.css C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\styles_2-1337149923249.css
+merging files  C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\scripts\jquery-1.7.2.min.js C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\scripts\scripts_3-1337149923251.js
+merging files  C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\scripts\jquery-ui-1.8.20.custom.min.js C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\scripts\scripts_3-1337149923251.js
 path for temporary is C:\Users\joe\Documents\github\phgm-build\sample\tmp
 path for publish is C:\Users\joe\Documents\github\phgm-build\sample\published
-ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\scripts\jquery-1.7.2.js C:\Users\joe\Documents\github\phgm-build\sample\published\assets\scripts\jquery-1.7.2.js
+ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\scripts\jquery-1.7.2.min.js C:\Users\joe\Documents\github\phgm-build\sample\published\assets\scripts\jquery-1.7.2.min.js
 ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\scripts\jquery-ui-1.8.20.custom.min.js C:\Users\joe\Documents\github\phgm-build\sample\published\assets\scripts\jquery-ui-1.8.20.custom.min.js
-ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap\bootstrap.css C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\bootstrap\bootstrap.css
-ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap\bootstrap.less C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\bootstrap\bootstrap.less
-ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap\responsive.css C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\bootstrap\responsive.css
-ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap\responsive.less C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\bootstrap\responsive.less
-ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap-adjust.css C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\bootstrap-adjust.css
-ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap-adjust.less C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\bootstrap-adjust.less
+ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\scripts\scripts_3-1337149923251.js C:\Users\joe\Documents\github\phgm-build\sample\published\assets\scripts\scripts_3-1337149923251.js
+ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap\bootstrap.min.css C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\bootstrap\bootstrap.min.css
+ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap\responsive.min.css C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\bootstrap\responsive.min.css
+ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\bootstrap-adjust.min.css C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\bootstrap-adjust.min.css
+ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\styles_0-1337149923247.css C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\styles_0-1337149923247.css
+ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\styles_1-1337149923249.css C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\styles_1-1337149923249.css
+ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\styles_2-1337149923249.css C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\styles_2-1337149923249.css
 ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png
 ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png
 ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\ui-lightness\images\ui-bg_flat_10_000000_40x100.png C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\ui-lightness\images\ui-bg_flat_10_000000_40x100.png
@@ -102,13 +153,11 @@ path for publish is C:\Users\joe\Documents\github\phgm-build\sample\published
 ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\ui-lightness\images\ui-icons_ef8c08_256x240.png C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\ui-lightness\images\ui-icons_ef8c08_256x240.png
 ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\ui-lightness\images\ui-icons_ffd27a_256x240.png C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\ui-lightness\images\ui-icons_ffd27a_256x240.png
 ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\ui-lightness\images\ui-icons_ffffff_256x240.png C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\ui-lightness\images\ui-icons_ffffff_256x240.png
-ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\ui-lightness\jquery-ui-1.8.20.custom.css C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\ui-lightness\jquery-ui-1.8.20.custom.css
+ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\assets\styles\ui-lightness\jquery-ui-1.8.20.custom.min.css C:\Users\joe\Documents\github\phgm-build\sample\published\assets\styles\ui-lightness\jquery-ui-1.8.20.custom.min.css
 ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\contact\about.html C:\Users\joe\Documents\github\phgm-build\sample\published\contact\about.html
 ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\contact\index.html C:\Users\joe\Documents\github\phgm-build\sample\published\contact\index.html
 ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\index.html C:\Users\joe\Documents\github\phgm-build\sample\published\index.html
 ファイルをコピーします。 Copying file. C:\Users\joe\Documents\github\phgm-build\sample\tmp\readme.txt C:\Users\joe\Documents\github\phgm-build\sample\published\readme.txt
-[ 'C:\\Users\\joe\\Documents\\github\\phgm-build\\sample\\tmp\\assets\\styles\\bootstrap\\bootstrap.css',
-  'C:\\Users\\joe\\Documents\\github\\phgm-build\\sample\\tmp\\assets\\styles\\bootstrap\\responsive.css',
-  'C:\\Users\\joe\\Documents\\github\\phgm-build\\sample\\tmp\\assets\\styles\\bootstrap-adjust.css' ]
+path for temporary is C:\Users\joe\Documents\github\phgm-build\sample\tmp
 ビルド完了
 BUILD COMPLETE
