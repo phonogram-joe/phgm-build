@@ -48,7 +48,8 @@
 			//	minify css files, replacing the original extension with '.css' (eg, keep same extension explicitly)
 			, {
 				"action": "minify_css"
-				, "ext": ".css"
+				, "ext": ".min.css"
+				, "ignore": "min\\.css"
 			}
 			//	minify js files, replacing original extension with '.min.js'. do not process files that end in "min.js"
 			, {
@@ -64,8 +65,8 @@
 					//	rewrite less <links> to refer to css files
 					//	LessCSSファイルをCSSへの<link>をCSSへのリンクに書き換える。
 					{
-						"pattern": "(<link[^>]+?)([-\\._a-zA-Z0-9]+)\\.less"
-						, "replace": "$1$2.css"
+						"pattern": "(<link[^>]+?)([-\\._a-zA-Z0-9]+?)(?!min)([-\\._a-zA-Z0-9]{3})\\.less"
+						, "replace": "$1$2$3.min.css"
 					}
 					//	rewrite less rel="..." to refer to css
 					, {
@@ -75,11 +76,19 @@
 					//	rewrite <script> tags to refer to minified javascript files
 					//	スクリプトタグを圧縮されたファイルパスに書き換える。
 					, {
-						"pattern": "(<script[^>]+?)([-\\._a-zA-Z0-9]+)\\.js"
-						, "replace": "$1$2.min.js"
+						"pattern": "(<script[^>]+?)([-\\._a-zA-Z0-9]+?)(?!min)([-\\._a-zA-Z0-9]{3})\\.js"
+						, "replace": "$1$2$3.min.js"
 					}
 				]
 			}
+			//	merge consecutibe <script> and CSS <link> tags into single tags.
+			/*
+			, {
+				"action": "merge_js_css"
+				, "script_dir": "assets/scripts"
+				, "style_dir": "assets/styles"
+			}
+			*/
 			//	copy the temporary directory to the publish directory. limit the files copied
 			//	to those explicitly added by previous actions.
 			, {
