@@ -1,9 +1,16 @@
 {
 	//	paths can be defined here and referenced later. see action documentation for which
 	//	config params expect a path key. eg the "copy" action's <src> and <dest> params.
+	//	note that the choice of "source", "temporary", and "publish" is arbitrary - you
+	//	may use any names so long as they match the settings below. eg, if you change
+	//	<source> to "html" here, you should also change it for the <src> setting of the
+	//	"copy" action below.
 	"paths": {
+		//	the original source HTML
 		"source": "./public_html"
+		//	temporary folder for building the site
 		, "temporary": "./tmp"
+		//	final output folder for a build
 		, "publish": "./published"
 	},
 	//	runnable tasks

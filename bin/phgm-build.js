@@ -1,4 +1,13 @@
 #!/usr/bin/env node
+
+/*
+ * phgm-build
+ * https://github.com/phonogram-joe/phgm-build
+ *
+ * Copyright (c) 2012 Joseph C. Savona
+ * Licensed under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ */
 var program = require('commander'),
 	TaskRunnerAsync = require('../lib/task_runner'),
 	PathsDelta = require('../lib/utils/paths_delta'),
