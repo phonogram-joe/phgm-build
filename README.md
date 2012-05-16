@@ -21,7 +21,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Initializing a project
 
-To start, <cd> to the root of your project. This should be the parent directory of your web root, so that your config file is not visible within the site content.
+To start, cd to the root of your project. This should be the parent directory of your web root, so that your config file is not visible within the site content.
 
 	$ cd project/root/
 
@@ -33,11 +33,11 @@ Now edit the config file's "paths" attributes to match your site structure.
 
 ## Running a build
 
-The <phuild.json> file contains two top-level attributes; "paths" and "tasks". To run a build, simple call
+The _phuild.json_ file contains two top-level attributes; "paths" and "tasks". To run a build, simple call
 
-	$ phgm-build *taskname*
+	$ phgm-build task
 
-Where <taskname> matches a key in the "tasks" attribute. In the default config file two tasks are available, "clean" and "build". A ridiculous amount of log output will be printed. Ignore it. Look closely at the "publish" directory. You'll notice that CSS and JavaScript have been minified, Less CSS has been compiled, consecutive <link>s and <scripts> have been merged into single files. Relative paths for <links>, <scripts>, and <images> are now root-relative. Plain (non-conditional) comments have been stripped.
+Where _task_ matches a key in the "tasks" attribute. In the default config file two tasks are available, "clean" and "build". A ridiculous amount of log output will be printed. Ignore it. Look closely at the "publish" directory. You'll notice that CSS and JavaScript have been minified, Less CSS has been compiled, consecutive _link_s and _scripts_ have been merged into single files. Relative paths for _links_, _scripts_, and _images_ are now root-relative. Plain (non-conditional) comments have been stripped.
 
 # Help
 
