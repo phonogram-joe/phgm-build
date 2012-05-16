@@ -70,6 +70,16 @@
 					}
 				]
 			}
+			//	modify HTML. 
+			//	* make all URLs either absolute (if already) or root-relative (if relative)
+			//	* compact multiple blank lines into one newline
+			//	* remove comments
+			, {
+				"action": "transform_html"
+				, "remove_comments": true
+				, "rewrite_urls": true
+				, "compact_lines": true
+			}
 			//	merge consecutive <script> and CSS <link> tags into single tags.
 			//	specify a base directory for the merged script and style files.
 			//	optionally rewrite <link>s with stylesheet/less to css.
@@ -80,6 +90,7 @@
 				, "script_dir": "assets/scripts"
 				, "style_dir": "assets/styles"
 				, "less_to_css": true
+				, "separator_class": "phuild-separate"
 			}
 			//	copy the temporary directory to the publish directory. limit the files copied
 			//	to those explicitly added by previous actions.
