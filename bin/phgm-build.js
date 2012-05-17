@@ -8,21 +8,20 @@
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
  */
-var program = require('commander'),
-	TaskRunnerAsync = require('../lib/task_runner'),
-	PathsDelta = require('../lib/utils/paths_delta'),
-	app = require('../lib/app'),
-	builder = require('../lib/builder'),
-	file = require('../lib/utils/file');
+var program = require('commander');
+var file = require('../lib/utils/file');
+var logger = require('../lib/utils/logger').getLogger('notice', 'phuild.log.txt');
+var builder = require('../lib/builder');
+var app = require('../lib/app');
+var PathsDelta = require('../lib/utils/paths_delta');
+var TaskRunnerAsync = require('../lib/task_runner');
 
 program
 	.version('0.0.1')
 	.usage('[options] [task]')
 	.option('-i, --init', 'create sample config file if not present.')
 	.option('-c, --config <path>', 'use the config file at <path>. ')
-	//.option('-C, --chdir <path>', 'change the working directory')
-	//.option('-c, --config <path>', 'set config path. defaults to ./deploy.conf')
-	//.option('-T, --no-tests', 'ignore test hook');
+	.option('-V, --verbose', 'enable verbose logging.')
 
 program
 	.command('*')
@@ -36,23 +35,26 @@ program
 		if (this.init === true) {
 			return;
 		}
+		if (this.verbose) {
+			logger.setLevel('info');
+		}
 		if (this.config != null) {
 			app.setConfigPath(this.config);
 		}
 		app.loadConfig();
 
-		builder.log(
-			'ビルドを準備しています。',
-			'PREPARING BUILD'
-		);
+		logger.notice({
+			ja: 'ビルドを準備しています。',
+			en: 'PREPARING BUILD'
+		});
 
 		taskConfig = app.config.tasks[taskName];
 		fileChanges = new PathsDelta();
 		callback = function() {
-			builder.log(
-				'ビルド完了',
-				'BUILD COMPLETE'
-			);
+			logger.notice({
+				ja: 'ビルド完了',
+				en: 'BUILD COMPLETE'
+			});
 		};
 
 		runner = new TaskRunnerAsync(taskConfig);
@@ -66,11 +68,22 @@ program.parse(process.argv);
 
 if (program.init) {
 	if (app.hasConfig()) {
-		console.error('設定ファイルは既に作られています。', 'Config file already exists.', app.configPath);
+		logger.emergency({
+			ja: '設定ファイルは既に作られています。', 
+			en: 'Config file already exists.', 
+			path: app.configPath
+		});
 		process.exit(1);
 	}
-	console.log('サンプル設定ファイルを作成します。', 'Creating sample config file.', app.configPath);
+	logger.info({
+		ja: 'サンプル設定ファイルを作成します。', 
+		en: 'Creating sample config file.', 
+		path: app.configPath
+	});
 	file.copy(builder.getTemplate(app.configFileName), app.configPath);
-	console.log('OK');
+	logger.info({
+		ja: 'コピー完了',
+		en: 'OK'
+	})
 	process.exit(0);
 }

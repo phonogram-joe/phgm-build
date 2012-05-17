@@ -18,3 +18,4 @@ sample/published/*
 sample/tmp/*
 sample/log.txt
 bin-vendor/*
+sample/phuild.log.txt
