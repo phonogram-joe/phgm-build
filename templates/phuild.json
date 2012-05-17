@@ -94,6 +94,12 @@
 				, "rewrite_urls": true
 				, "compact_lines": true
 			}
+			//	modify CSS.
+			//	* rewrite all 'url(...);'s to be root-relative paths (if already relative)
+			, {
+				"action": "transform_css"
+				, "rewrite_urls": true
+			}
 			//	merge consecutive <script> and CSS <link> tags into single tags.
 			//	specify a base directory for the merged script and style files.
 			//	optionally rewrite <link>s with stylesheet/less to css.
