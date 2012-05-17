@@ -18,32 +18,39 @@
 		//	sub task for cleaning temporary and publish directories.
 		"clean": [
 			{
+				"task": "clean_tmp"
+			}
+			, {
+				"task": "clean_publish"
+			}
+		]
+		, "clean_tmp": [
+			{
 				"action": "clean"
 				, "target": "temporary"
 			}
-			, {
+		]
+		, "clean_publish": [
+			{
 				"action": "clean"
 				, "target": "publish"
 			}
 		]
 		//	main task for running a full build.
 		, "build": [
+			//	remove the temporary directory
+			{
+				"task": "clean_tmp"
+			}
 			//	copy files from <src> to <dest>, cleaning the target directory first.
 			//	change working directory to the target afterwards.
-			{
+			, {
 				"action": "copy"
 				, "src": "source"
 				, "dest": "temporary"
 				, "clean_first": true
 				, "change_directory": true
 			}
-			/*
-			//	run a sub-task (eg, all of its actions), pasing the current working directory.
-			, {
-				"action": "task"
-				, "task" : "dev"
-			}
-			*/
 			//	process .less files into .css files. only process the specified files and ignore other .less files
 			, {
 				"action": "less"
@@ -113,8 +120,7 @@
 			}
 			//	remove the temporary directory
 			, {
-				"action": "clean"
-				, "target": "temporary"
+				"task": "clean_tmp"
 			}
 		]
 	}
