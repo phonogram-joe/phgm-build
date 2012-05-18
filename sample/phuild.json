@@ -38,7 +38,7 @@
 		]
 		//	build the app and then serve the publish'ed directory over HTTP
 		, "serve-prod": [
-			/*{
+			{
 				"task": "build"
 			}
 			, {
@@ -46,7 +46,6 @@
 				, "port": 8080
 				, "root": "publish"
 			}
-			*/
 		]
 		//	serve the development version of the app
 		, "serve": [
@@ -75,7 +74,9 @@
 				"action": "less"
 				, "files": [
 					"assets\/styles\/bootstrap\/bootstrap.less"
+					, "assets\/styles\/bootstrap\/bootstrap-united.less"
 					, "assets\/styles\/bootstrap\/responsive.less"
+					, "assets\/styles\/bootstrap\/responsive-united.less"
 					, "assets\/styles\/page.less"
 				]
 			}
