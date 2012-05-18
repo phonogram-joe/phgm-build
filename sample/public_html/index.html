@@ -1,40 +1,62 @@
-<html>
-	<head>
-		<!-- 全ページで使う共通のCSS -->
-		<link rel="stylesheet/less" href="/assets/styles/bootstrap/bootstrap.less" />
-		<link rel="stylesheet/less" href="/assets/styles/bootstrap/responsive.less" />
-		<!-- このページのみで使うCSS 最初のタグに"no-merge-files"というクラスを付ける。 -->
-		<link class="no-merge-files" rel="stylesheet/less" href="/assets/styles/page.less" />
-		<link rel="stylesheet/less" />
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<link rel="apple-touch-icon" href="apple-touch-icon.png">	
 
 
-		<!-- 全ページで使う共通のJavaScript (優先：高) -->
-		<script src="/assets/scripts/modernizr-2.5.3.js"></script>
-		<script src="/assets/scripts/less-1.3.0.min.js"></script>
-	</head>
-	<body>
-		<a href="http://localhost:8080/index.html">Home</a>
-		<img src="./assets/images/../images/top.png" />
+	<!-- 全ページで使う共通のCSS -->
+	<link rel="stylesheet/less" href="/assets/styles/bootstrap/bootstrap.less" />
+	<link rel="stylesheet/less" href="/assets/styles/bootstrap/responsive.less" />
 
-		<!-- 全ページで使う共通のJavaScript (優先：中・低) -->
-		<script src="/assets/scripts/jquery-1.7.2.js"></script>
-		<script src="/assets/scripts/jquery.cookie.js"></script>
-		<script src="/assets/scripts/underscore.js"></script>
-		<script src="/assets/scripts/bootstrap/bootstrap-transition.js"></script>
-		<script src="/assets/scripts/bootstrap/bootstrap-alert.js"></script>
-		<script src="/assets/scripts/bootstrap/bootstrap-modal.js"></script>
-		<script src="/assets/scripts/bootstrap/bootstrap-dropdown.js"></script>
-		<script src="/assets/scripts/bootstrap/bootstrap-scrollspy.js"></script>
-		<script src="/assets/scripts/bootstrap/bootstrap-tab.js"></script>
-		<script src="/assets/scripts/bootstrap/bootstrap-tooltip.js"></script>
-		<script src="/assets/scripts/bootstrap/bootstrap-popover.js"></script>
-		<script src="/assets/scripts/bootstrap/bootstrap-button.js"></script>
-		<script src="/assets/scripts/bootstrap/bootstrap-collapse.js"></script>
-		<script src="/assets/scripts/bootstrap/bootstrap-carousel.js"></script>
-		<script src="/assets/scripts/bootstrap/bootstrap-typeahead.js"></script>	
+	<!-- 現ページのみの使うCSS。 最初のタグに"no-merge-files"というクラスを付ける。 -->
+	<link class="no-merge-files" rel="stylesheet/less" href="/assets/styles/page.less" />
+	<link rel="stylesheet/less" />
 
-		<!-- このページのみで使うスクリプト　（優先高い） 最初のタグに"no-merge-files"というクラスを付ける。 -->
-		<script class="no-merge-files"></script>
-		<script></script>
-	</body>
+	<!-- 全ページで使う共通のJavaScript。 (読み込まれてないと全然表示ができないスクリプトのみ！！！) -->
+	<script src="/assets/scripts/modernizr-2.5.3.js"></script>
+	<script src="/assets/scripts/less-1.3.0.min.js"></script>
+</head>
+<body>
+	<div id="container">
+	</div>
+
+	<!------------------------------------------------------------------------
+		スクリプトはbodyタグの一番したに置くこと！
+	-------------------------------------------------------------------------->
+	<!-- Googleアクセス解析の非同期バージョン -->
+	<script>
+		var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+		(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+		g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+		s.parentNode.insertBefore(g,s)}(document,'script'));
+	</script>
+
+	<!-- 全ページで使う共通のJavaScript -->
+	<script src="/assets/scripts/jquery-1.7.2.js"></script>
+	<script src="/assets/scripts/jquery.cookie.js"></script>
+	<script src="/assets/scripts/underscore.js"></script>
+	<script src="/assets/scripts/bootstrap/bootstrap-transition.js"></script>
+	<script src="/assets/scripts/bootstrap/bootstrap-alert.js"></script>
+	<script src="/assets/scripts/bootstrap/bootstrap-modal.js"></script>
+	<script src="/assets/scripts/bootstrap/bootstrap-dropdown.js"></script>
+	<script src="/assets/scripts/bootstrap/bootstrap-scrollspy.js"></script>
+	<script src="/assets/scripts/bootstrap/bootstrap-tab.js"></script>
+	<script src="/assets/scripts/bootstrap/bootstrap-tooltip.js"></script>
+	<script src="/assets/scripts/bootstrap/bootstrap-popover.js"></script>
+	<script src="/assets/scripts/bootstrap/bootstrap-button.js"></script>
+	<script src="/assets/scripts/bootstrap/bootstrap-collapse.js"></script>
+	<script src="/assets/scripts/bootstrap/bootstrap-carousel.js"></script>
+	<script src="/assets/scripts/bootstrap/bootstrap-typeahead.js"></script>	
+
+	<!-- 現ページのみで使うスクリプト。　最初のタグに"no-merge-files"というクラスを付ける。 -->
+	<script class="no-merge-files"></script>
+	<script></script>
+</body>
 </html>
