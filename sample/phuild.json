@@ -36,6 +36,25 @@
 				, "target": "publish"
 			}
 		]
+		//	build the app and then serve the publish'ed directory over HTTP
+		, "serve-prod": [
+			/*{
+				"task": "build"
+			}
+			, {
+				"action": "serve"
+				, "port": 8080
+				, "root": "publish"
+			}
+			*/
+		]
+		//	serve the development version of the app
+		, "serve": [
+			{
+				"action": "serve"
+				, "root": "source"
+			}
+		]
 		//	main task for running a full build.
 		, "build": [
 			//	remove the temporary directory
