@@ -9,6 +9,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 var program = require('commander');
+var path = require('path');
 var file = require('../lib/utils/file');
 var logger = require('../lib/utils/logger').getLogger('notice', 'phuild.log.txt');
 var builder = require('../lib/builder');
@@ -20,6 +21,7 @@ program
 	.version('0.0.1')
 	.usage('[options] [task]')
 	.option('-i, --init', 'create sample config file if not present.')
+	.option('-s, --scaffold <path>', 'create a full site scaffold from the sample at <path>.')
 	.option('-c, --config <path>', 'use the config file at <path>. ')
 	.option('-V, --verbose', 'enable verbose logging.')
 
@@ -32,7 +34,7 @@ program
 			callback,
 			taskConfig;
 
-		if (this.init === true) {
+		if (this.init === true || this.scaffold != null) {
 			return;
 		}
 		if (this.verbose) {
@@ -87,3 +89,15 @@ if (program.init) {
 	})
 	process.exit(0);
 }
+
+if (program.scaffold) {
+	var scaffoldPath = path.join(app.path, program.scaffold);
+	if (file.isSubDirectory(scaffoldPath, app.path)) {
+		logger.emergency({
+			ja: '現フォルダーより下のパスを指定してください。',
+			en: 'Please specify a sub-folder of current directory.'
+		});
+	}
+	builder.scaffoldSite(scaffoldPath);
+}
+
