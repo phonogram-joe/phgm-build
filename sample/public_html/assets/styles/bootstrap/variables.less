@@ -2,18 +2,6 @@
 // Variables to customize the look and feel of Bootstrap
 // -----------------------------------------------------
 
-// ウェブ・フォント。フォノグラムカスタム
-@font-face {
-    font-family: 'm1c';
-    src: url('/inc/fonts/mplus-1c-regular.eot');
-    src: url('/inc/fonts/mplus-1c-regular.eot?#iefix') format('embedded-opentype'),
-         url('/inc/fonts/mplus-1c-regular.woff') format('woff'),
-         url('/inc/fonts/mplus-1c-regular.ttf') format('truetype'),
-         url('/inc/fonts/mplus-1c-regular.svg#M1cregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
 
 
 // GLOBAL VALUES
@@ -57,14 +45,16 @@
 
 // Typography
 // -------------------------
+@sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
+@serifFontFamily:       Georgia, "Times New Roman", Times, serif;
+@monoFontFamily:        Menlo, Monaco, Consolas, "Courier New", monospace;
+
 @baseFontSize:          13px;
-@baseFontFamily:        "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+@baseFontFamily:        @sansFontFamily;
 @baseLineHeight:        18px;
-@altFontFamily:         @baseFontFamily;
+@altFontFamily:         @serifFontFamily;
 
-@uiFontFamily:			"m1c", @baseFontFamily; // UIの部分（固定のテキスト。ユーザ・データ・時間と問わず表示できる内容のみ）
-
-@headingsFontFamily:    @uiFontFamily; // empty to use BS default, @baseFontFamily
+@headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
 @headingsFontWeight:    bold;    // instead of browser default, bold
 @headingsColor:         inherit; // empty to use BS default, @textColor
 
@@ -81,7 +71,7 @@
 // -------------------------
 @btnBackground:                     @white;
 @btnBackgroundHighlight:            darken(@white, 10%);
-@btnBorder:                         darken(@white, 20%);
+@btnBorder:                         #ccc;
 
 @btnPrimaryBackground:              @linkColor;
 @btnPrimaryBackgroundHighlight:     spin(@btnPrimaryBackground, 15%);
@@ -106,8 +96,9 @@
 // -------------------------
 @inputBackground:               @white;
 @inputBorder:                   #ccc;
+@inputBorderRadius:             3px;
 @inputDisabledBackground:       @grayLighter;
-
+@formActionsBackground:         #f5f5f5;
 
 // Dropdowns
 // -------------------------
@@ -168,6 +159,7 @@
 @navbarSearchBackgroundFocus:     @white;
 @navbarSearchBorder:              darken(@navbarSearchBackground, 30%);
 @navbarSearchPlaceholderColor:    #ccc;
+@navbarBrandColor:                @navbarLinkColor;
 
 
 // Hero unit
@@ -197,7 +189,6 @@
 
 
 
-
 // GRID
 // --------------------------------------------------
 
@@ -207,7 +198,6 @@
 @gridColumnWidth:         60px;
 @gridGutterWidth:         20px;
 @gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
-
 
 // Fluid grid
 // -------------------------

@@ -57,7 +57,7 @@
 				, "files": [
 					"assets\/styles\/bootstrap\/bootstrap.less"
 					, "assets\/styles\/bootstrap\/responsive.less"
-					, "assets\/styles\/bootstrap-adjust.less"
+					, "assets\/styles\/page.less"
 				]
 			}
 			//	minify css files, replacing the original extension with '.css' (eg, keep same extension explicitly)
@@ -107,12 +107,12 @@
 			//	note: do Less CSS compilation before this action.
 			, {
 				"action": "merge_html_assets"
-				, "script_dir": "assets/scripts"
+				, "script_dir": "assets\/scripts"
 				, "script_name": "script_$HASH$.js"
-				, "style_dir": "assets/styles"
+				, "style_dir": "assets\/styles"
 				, "style_name": "style_$HASH$.css"
 				, "less_to_css": true
-				, "separator_class": "phuild-separate"
+				, "separator_class": "no-merge-files"
 				, "hash_length": 32
 			}
 			//	copy the temporary directory to the publish directory. limit the files copied
