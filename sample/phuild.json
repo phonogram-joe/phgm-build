@@ -135,6 +135,11 @@
 				, "separator_class": "no-merge-files"
 				, "hash_length": 32
 			}
+			//	active production htaccess file
+			, {
+				"action": "env_specific"
+				, "active": ".prod"
+			}
 			//	copy the temporary directory to the publish directory. limit the files copied
 			//	to those explicitly added by previous actions.
 			, {
