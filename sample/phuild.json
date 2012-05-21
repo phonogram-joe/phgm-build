@@ -8,6 +8,8 @@
 	"paths": {
 		//	the original source HTML
 		"source": "./public_html"
+		//	source documents (for markdown->html conversion)
+		, "docs": "./docs"
 		//	temporary folder for building the site
 		, "temporary": "./tmp"
 		//	final output folder for a build
@@ -139,6 +141,12 @@
 			, {
 				"action": "env_specific"
 				, "active": ".prod"
+			}
+			//	process Markdown documents into HTML
+			, {
+				"action": "markdown"
+				, "src": "docs"
+				, "dest": "temporary"
 			}
 			//	copy the temporary directory to the publish directory. limit the files copied
 			//	to those explicitly added by previous actions.
