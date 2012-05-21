@@ -45,6 +45,14 @@ program
 		}
 		app.loadConfig();
 
+		if (!app.config.tasks || !(taskName in app.config.tasks)) {
+			logger.emergency({
+				ja: 'タスク"{{task}}"は設定されていません。',
+				en: 'Task "{{task}}" is undefined.',
+				task: taskName
+			});
+		}
+
 		logger.notice({
 			ja: 'ビルドを準備しています。',
 			en: 'PREPARING BUILD'
@@ -99,5 +107,6 @@ if (program.scaffold) {
 		});
 	}
 	builder.scaffoldSite(scaffoldPath);
+	process.exit(0);
 }
 
