@@ -1,6 +1,9 @@
 ---
-title: Introduction
-layout: default
+{
+    "title": "GitHub Flavored Markdown"
+    , "layout": "blog/layout.html"
+    , "time": "June 30, 2012"
+}
 ---
 
 GitHub uses what we're calling "GitHub Flavored Markdown" (GFM) for messages, issues, and comments. It differs from standard Markdown (SM) in a few significant ways and adds some additional functionality.

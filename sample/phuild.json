@@ -9,7 +9,7 @@
 		//	the original source HTML
 		"source": "./public_html"
 		//	source documents (for markdown->html conversion)
-		, "docs": "./docs"
+		, "docs": "./public_html/blog"
 		//	temporary folder for building the site
 		, "temporary": "./tmp"
 		//	final output folder for a build
@@ -142,11 +142,22 @@
 				"action": "env_specific"
 				, "active": ".prod"
 			}
+			//	extract JSON metadata from headers of markdown files
+			, {
+				"action": "metadata"
+				, "extensions": [".md", ".markdown"]
+			}
 			//	process Markdown documents into HTML
 			, {
 				"action": "markdown"
-				, "src": "docs"
-				, "dest": "temporary"
+				//, "src": "docs"
+				//, "dest": "temporary"
+			}
+			//	wrap markdown-sourced html in layouts
+			, {
+				"action": "template"
+				, "rename": "blog/{{yyyy}}/{{mm}}/{{dd}}/{{title_lc}}.html"
+				, "layout": "blog/layout.html"
 			}
 			//	copy the temporary directory to the publish directory. limit the files copied
 			//	to those explicitly added by previous actions.
