@@ -1,6 +1,6 @@
 {
     "name": "phgm-build",
-    "version": "0.0.12",
+    "version": "0.0.15",
     "private": true,
     "description": "A simple website build tool based on @visionmedia's commander.js",
     "keywords": [

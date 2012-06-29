@@ -8,8 +8,8 @@
 	"paths": {
 		//	the original source HTML
 		"source": "./public_html"
-		//	source documents (for markdown->html conversion)
-		, "docs": "./public_html/blog"
+		//	javascript files
+		, "source-js": "./public_html/inc/js"
 		//	temporary folder for building the site
 		, "temporary": "./tmp"
 		//	final output folder for a build
@@ -18,7 +18,7 @@
 	//	runnable tasks
 	"tasks": {
 		//	sub task for cleaning temporary and publish directories.
-		"clean": [
+		, "clean": [
 			{
 				"task": "clean_tmp"
 			}
@@ -26,13 +26,13 @@
 				"task": "clean_publish"
 			}
 		]
-		, "clean_tmp": [
+		, "clean-tmp": [
 			{
 				"action": "clean"
 				, "target": "temporary"
 			}
 		]
-		, "clean_publish": [
+		, "clean-publish": [
 			{
 				"action": "clean"
 				, "target": "publish"
@@ -60,7 +60,7 @@
 		, "build": [
 			//	remove the temporary directory
 			{
-				"task": "clean_tmp"
+				"task": "clean-tmp"
 			}
 			//	copy files from <src> to <dest>, cleaning the target directory first.
 			//	change working directory to the target afterwards.
@@ -75,24 +75,34 @@
 			, {
 				"action": "less"
 				, "files": [
-					"assets\/styles\/bootstrap\/bootstrap.less"
-					, "assets\/styles\/bootstrap\/bootstrap-united.less"
-					, "assets\/styles\/bootstrap\/responsive.less"
-					, "assets\/styles\/bootstrap\/responsive-united.less"
-					, "assets\/styles\/page.less"
+					"inc\/css\/bootstrap\/bootstrap.less"
+					, "inc\/css\/bootstrap\/bootstrap-united.less"
+					, "inc\/css\/bootstrap\/responsive.less"
+					, "inc\/css\/bootstrap\/responsive-united.less"
+					, "inc\/css\/page.less"
 				]
 			}
 			//	minify css files, replacing the original extension with '.css' (eg, keep same extension explicitly)
 			, {
 				"action": "minify_css"
-				, "ext": ".min.css"
+				, "change_ext": ".css"
 				, "ignore": "min\\.css"
+				, "inline_imports": true
+				, "keep_original": true
 			}
 			//	minify js files, replacing original extension with '.min.js'. do not process files that end in "min.js"
 			, {
 				"action": "minify_js"
-				, "ext": ".min.js"
+				, "change_ext": ".js"
 				, "ignore": "min\\.js$"
+				, "keep_original": true
+			}
+			//	'version' files by including a hash of their contents in the file name. allows long cache-expiry times
+			//	without worry that an old version will remain - content changes will cause a file name change in HTML
+			, {
+				"action": "version_assets"
+				, "hash_length": 32
+				, "keep_original": true
 			}
 			//	rewrite text contents of .html files.
 			//	example rewrites localhost references to the 'real' production domain name.
@@ -110,16 +120,25 @@
 			//	* make all URLs either absolute (if already) or root-relative (if relative)
 			//	* compact multiple blank lines into one newline
 			//	* remove comments
+			//	* remove any tags with ANY of a space-separated list of class names
 			, {
 				"action": "transform_html"
 				, "remove_comments": true
 				, "rewrite_urls": true
+				, "remove_classes": "_build-remove _build-removeme"
 				, "compact_lines": true
 			}
 			//	modify CSS.
 			//	* rewrite all 'url(...);'s to be root-relative paths (if already relative)
 			, {
 				"action": "transform_css"
+				, "rewrite_urls": true
+			}
+			//	modify JS
+			//	* rewrite anything that looks like a URL and points to a real file
+			//		to be the final filename (as root-relative path)
+			, {
+				"action": "transform_js"
 				, "rewrite_urls": true
 			}
 			//	merge consecutive <script> and CSS <link> tags into single tags.
@@ -129,35 +148,21 @@
 			//	note: do Less CSS compilation before this action.
 			, {
 				"action": "merge_html_assets"
-				, "script_dir": "assets\/scripts"
+				, "script_dir": "inc\/js"
 				, "script_name": "script_$HASH$.js"
-				, "style_dir": "assets\/styles"
+				, "style_dir": "inc\/css"
 				, "style_name": "style_$HASH$.css"
 				, "less_to_css": true
-				, "separator_class": "no-merge-files"
+				, "separator_class": "_build-nomerge"
 				, "hash_length": 32
 			}
-			//	active production htaccess file
+			//	active production .htaccess.prod file
 			, {
 				"action": "env_specific"
 				, "active": ".prod"
 			}
-			//	extract JSON metadata from headers of markdown files
 			, {
-				"action": "metadata"
-				, "extensions": [".md", ".markdown"]
-			}
-			//	process Markdown documents into HTML
-			, {
-				"action": "markdown"
-				//, "src": "docs"
-				//, "dest": "temporary"
-			}
-			//	wrap markdown-sourced html in layouts
-			, {
-				"action": "template"
-				, "rename": "blog/{{yyyy}}/{{mm}}/{{dd}}/{{title_lc}}.html"
-				, "layout": "blog/layout.html"
+				"task": "clean-publish"
 			}
 			//	copy the temporary directory to the publish directory. limit the files copied
 			//	to those explicitly added by previous actions.
@@ -170,7 +175,7 @@
 			}
 			//	remove the temporary directory
 			, {
-				"task": "clean_tmp"
+				"task": "clean-tmp"
 			}
 		]
 	}
