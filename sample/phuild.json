@@ -1,29 +1,31 @@
 {
-	//	paths can be defined here and referenced later. see action documentation for which
-	//	config params expect a path key. eg the "copy" action's <src> and <dest> params.
-	//	note that the choice of "source", "temporary", and "publish" is arbitrary - you
-	//	may use any names so long as they match the settings below. eg, if you change
-	//	<source> to "html" here, you should also change it for the <src> setting of the
-	//	"copy" action below.
+	/*	---------------------------------------------------------------------------	
+		パス設定
+	 */
 	"paths": {
-		//	the original source HTML
+		//	ソース
 		"source": "./public_html"
-		//	javascript files
-		, "source-js": "./public_html/inc/js"
-		//	temporary folder for building the site
+		//	ビルド用の一時フォルダー
 		, "temporary": "./tmp"
-		//	final output folder for a build
+		//	ビルド先
 		, "publish": "./published"
 	},
-	//	runnable tasks
+	/*	---------------------------------------------------------------------------	
+		実行できるタスク
+	 */
 	"tasks": {
-		//	sub task for cleaning temporary and publish directories.
-		, "clean": [
+		/*	---------------------------------------------------------------------------	
+			クリーン
+			clean
+
+			ビルド・一時フォルダーを削除する
+		 */
+		"clean": [
 			{
-				"task": "clean_tmp"
+				"task": "clean-tmp"
 			}
 			, {
-				"task": "clean_publish"
+				"task": "clean-publish"
 			}
 		]
 		, "clean-tmp": [
@@ -38,7 +40,11 @@
 				, "target": "publish"
 			}
 		]
-		//	build the app and then serve the publish'ed directory over HTTP
+
+		/*	---------------------------------------------------------------------------	
+			ローカルホストでウェブサーバーを開いてサイトを提供する （公開版）
+			serve-prod
+		 */
 		, "serve-prod": [
 			{
 				"task": "build"
@@ -49,21 +55,37 @@
 				, "root": "publish"
 			}
 		]
-		//	serve the development version of the app
+
+		/*	---------------------------------------------------------------------------	
+			ローカルホストでウェブサーバーを開いてサイトを提供する　（開発版）
+			serve
+		 */
 		, "serve": [
 			{
 				"action": "serve"
 				, "root": "source"
 			}
 		]
-		//	main task for running a full build.
+
+		/*	---------------------------------------------------------------------------	
+			普段ビルド
+			build
+
+			＊　ファイル名を変えずにCSS・JSを圧縮する
+			＊　複数のスクリプト・スタイルをマージして一個のファイルにする。
+			＊　CSS・JS・画像・フォントなどのファイル名をバージョン化する。（内容のハッシュをファイル名にいれる。例：jquery.js -> jquery.14bhadlfhha.js）
+			＊　HTML・CSS・JSにあるURLをバージョン化されたパスに更新。(src・hrefなど)
+			＊　設定ファイルは本番用のに切り替え　（.htaccess.prodなど）
+			＊　開発のドメイン名を本番のドメインに書き換える
+			＊　HTMLの空白類文字は複数のある場合に一個にする
+			＊　問い合わせフォームのHTMLにある絶対パスを相対パスに書き換える
+		 */
 		, "build": [
-			//	remove the temporary directory
+			//	一時フォルダーを削除
 			{
 				"task": "clean-tmp"
 			}
-			//	copy files from <src> to <dest>, cleaning the target directory first.
-			//	change working directory to the target afterwards.
+			//	ソースを一時フォルダーへコピー
 			, {
 				"action": "copy"
 				, "src": "source"
@@ -71,101 +93,102 @@
 				, "clean_first": true
 				, "change_directory": true
 			}
-			//	process .less files into .css files. only process the specified files and ignore other .less files
-			, {
-				"action": "less"
-				, "files": [
-					"inc\/css\/bootstrap\/bootstrap.less"
-					, "inc\/css\/bootstrap\/bootstrap-united.less"
-					, "inc\/css\/bootstrap\/responsive.less"
-					, "inc\/css\/bootstrap\/responsive-united.less"
-					, "inc\/css\/page.less"
-				]
-			}
-			//	minify css files, replacing the original extension with '.css' (eg, keep same extension explicitly)
+			//	CSSを圧縮
 			, {
 				"action": "minify_css"
+				//	圧縮したファイルの拡張子を「.css」そのままにする
 				, "change_ext": ".css"
+				//	ファイル名が「.min.css」で終わる場合は放置する
 				, "ignore": "min\\.css"
+				//	@importルールの場合は、インポートされるファイルをインポートするファイルに埋める
 				, "inline_imports": true
+				//	もとのファイルを削除しない　（拡張子を変える場合に必要）
 				, "keep_original": true
 			}
-			//	minify js files, replacing original extension with '.min.js'. do not process files that end in "min.js"
+			//	JavaScriptを圧縮
 			, {
 				"action": "minify_js"
+				//	圧縮したファイルの拡張子を「.js」そのままにする
 				, "change_ext": ".js"
+				//	ファイル名が「.min.js」で終わる場合は放置する
 				, "ignore": "min\\.js$"
+				//	もとのファイルを削除しない　（拡張子を変える場合に必要）
 				, "keep_original": true
 			}
-			//	'version' files by including a hash of their contents in the file name. allows long cache-expiry times
-			//	without worry that an old version will remain - content changes will cause a file name change in HTML
+			//	CSS・JS・画像・フォントなどのようなインクルード・ファイルをバージョン化する。
 			, {
 				"action": "version_assets"
 				, "hash_length": 32
 				, "keep_original": true
 			}
-			//	rewrite text contents of .html files.
-			//	example rewrites localhost references to the 'real' production domain name.
+			//	HTMLファイルのテキスト内容を書き換える。開発ドメインを本番のに。
 			, {
 				"action": "rewrite_text"
+				//	「.html」で終わるファイルのみ
 				, "include": ["\\.html$"]
 				, "rewrites": [
 					{
-						"pattern": "http:\/\/localhost:8080"
-						, "replace": "http:\/\/example.com"
+						//	下記のパタンを
+						"pattern": "ABC"
+						//	下記のストリングに
+						, "replace": "DEF"
 					}
 				]
 			}
-			//	modify HTML. 
-			//	* make all URLs either absolute (if already) or root-relative (if relative)
-			//	* compact multiple blank lines into one newline
-			//	* remove comments
-			//	* remove any tags with ANY of a space-separated list of class names
+			//	HTMLを編集
 			, {
 				"action": "transform_html"
+				//	コメントを消す　（IE専用コメントは放置）
 				, "remove_comments": true
+				//	バージョン化されたファイルへのパスを書き換える
 				, "rewrite_urls": true
-				, "remove_classes": "_build-remove _build-removeme"
+				//	指定のクラス名がついてる子供のないタグを消す
+				, "remove_classes": "_build-remove"
+				//	空白類文字は複数のある場合に一個にする
 				, "compact_lines": true
 			}
-			//	modify CSS.
-			//	* rewrite all 'url(...);'s to be root-relative paths (if already relative)
+			//	CSSの編集
 			, {
 				"action": "transform_css"
+				//	バージョン化されたファイルへのパスを書き換える
 				, "rewrite_urls": true
 			}
-			//	modify JS
-			//	* rewrite anything that looks like a URL and points to a real file
-			//		to be the final filename (as root-relative path)
+			//	JavaScriptの編集
 			, {
 				"action": "transform_js"
+				//	バージョン化されたファイルへのパスを書き換える
 				, "rewrite_urls": true
 			}
-			//	merge consecutive <script> and CSS <link> tags into single tags.
-			//	specify a base directory for the merged script and style files.
-			//	optionally rewrite <link>s with stylesheet/less to css.
-			//	LessCSS file paths will be properly followed if the less has been compiled to css
-			//	note: do Less CSS compilation before this action.
+			//	HTMLに連続書いたスクリプト・スタイルタグがある場合、その複数のファイルをマージする（一個のファイルにする）
+			//	メディアクエリ・インラインスタイルやスクリプト・見つからないファイルは全て処理されるので安心してください。
 			, {
 				"action": "merge_html_assets"
+				//	マージするJSの保存先
 				, "script_dir": "inc\/js"
+				//	マージするJSのファイル名パタン
 				, "script_name": "script_$HASH$.js"
+				//	マージしたCSSの保存先
 				, "style_dir": "inc\/css"
+				//	マージしたCSSのファイル名パタン
 				, "style_name": "style_$HASH$.css"
+				//	Less CSSのスタイル・タグをCSSタグにする
 				, "less_to_css": true
+				//	指定のクラスがついてる場合、マージしない
 				, "separator_class": "_build-nomerge"
+				//	ファイル内容のハッシュをファイル名に埋めるとき、ハッシュの文字数。最大32文字。
 				, "hash_length": 32
 			}
-			//	active production .htaccess.prod file
+			//	環境別のファイルの中から本番用の選択する
 			, {
 				"action": "env_specific"
+				//	例： 「.htaccess.prod」を「.htaccess」に上書きする。
 				, "active": ".prod"
 			}
+			//	公開フォルダーを削除
 			, {
 				"task": "clean-publish"
 			}
-			//	copy the temporary directory to the publish directory. limit the files copied
-			//	to those explicitly added by previous actions.
+			//	一時フォルダーを公開フォルダーにコピー
 			, {
 				"action": "copy"
 				, "src": "temporary"
@@ -173,7 +196,7 @@
 				, "added_only": true
 				, "clean_first": true
 			}
-			//	remove the temporary directory
+			//	一時フォルダーを削除
 			, {
 				"task": "clean-tmp"
 			}
