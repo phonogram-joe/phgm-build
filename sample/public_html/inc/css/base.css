@@ -1,0 +1,7 @@
+.before:before {
+	content: "before";
+}
+@import url('/inc/css/styles.css');
+.after:after {
+	content: "after";
+}
